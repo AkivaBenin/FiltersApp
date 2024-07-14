@@ -10,13 +10,9 @@ public class MainWindow extends JFrame {
         setSize(800, 600);
         setLocationRelativeTo(null);
 
-        imagePanel = new ImagePanel(this); // Pass the JFrame reference to the ImagePanel
+        imagePanel = new ImagePanel(this);
         add(imagePanel, BorderLayout.CENTER);
 
         setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(MainWindow::new);
     }
 }

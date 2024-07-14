@@ -75,7 +75,7 @@ public class Filters {
     public static void posterize(BufferedImage image) {
         int width = image.getWidth();
         int height = image.getHeight();
-        int levels = 4; // Number of levels for posterization
+        int levels = 4;
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
@@ -169,7 +169,7 @@ public class Filters {
     public static void showBorders(BufferedImage image) {
         int width = image.getWidth();
         int height = image.getHeight();
-        int threshold = 10; // Threshold for edge detection
+        int threshold = 10;
 
         BufferedImage edges = new BufferedImage(width, height, image.getType());
         for (int y = 1; y < height - 1; y++) {

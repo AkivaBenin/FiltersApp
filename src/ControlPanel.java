@@ -15,12 +15,12 @@ public class ControlPanel extends JPanel {
     public ControlPanel(ImagePanel imagePanel) {
         this.imagePanel = imagePanel;
 
-        setLayout(new BorderLayout()); // Use BorderLayout
+        setLayout(new BorderLayout());
 
-        JPanel topPanel = new JPanel(new FlowLayout()); // Top panel with select image
-        JPanel middlePanel = new JPanel(new FlowLayout()); // Middle panel with apply, save
-        JPanel bottomPanel = new JPanel(new FlowLayout()); // Bottom panel with undo, redo, clear filters
-        JPanel instructionPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT)); // Panel for instructions button
+        JPanel topPanel = new JPanel(new FlowLayout());
+        JPanel middlePanel = new JPanel(new FlowLayout());
+        JPanel bottomPanel = new JPanel(new FlowLayout());
+        JPanel instructionPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
         selectImageButton = new JButton("Select Image");
         selectImageButton.addActionListener(e -> imagePanel.loadImage());
@@ -52,29 +52,23 @@ public class ControlPanel extends JPanel {
         clearButton.setEnabled(false);
         clearButton.addActionListener(e -> imagePanel.clearFilters());
 
-        // Create Instructions button with a "?" icon
         instructionsButton = new JButton("?");
         instructionsButton.setToolTipText("Instructions");
         instructionsButton.addActionListener(e -> imagePanel.showInstructions());
 
-        // Add components to top panel
         topPanel.add(selectImageButton);
 
-        // Add components to middle panel
         middlePanel.add(new JLabel("Filter:"));
         middlePanel.add(filterBox);
         middlePanel.add(applyButton);
         middlePanel.add(saveButton);
 
-        // Add components to bottom panel
         bottomPanel.add(undoButton);
         bottomPanel.add(redoButton);
         bottomPanel.add(clearButton);
 
-        // Add instructions button to instruction panel
         instructionPanel.add(instructionsButton);
 
-        // Add panels to control panel
         add(topPanel, BorderLayout.NORTH);
         add(middlePanel, BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);

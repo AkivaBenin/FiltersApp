@@ -101,23 +101,17 @@ public class ImagePanel extends JPanel {
         controlPanel.updateClearButtonState();
     }
 
-    public BufferedImage getImage() {
-        return image;
-    }
-
     public void applyFilter(String filterName) {
         if (image == null) {
             JOptionPane.showMessageDialog(this, "Please load an image first.");
             return;
         }
 
-        // Save current image state to undo stack
         undoStack.push(copyImage(image));
         redoStack.clear();
 
         if (pointCount == 4) {
             Rectangle selection = getSelectionRectangle();
-            // Convert panel coordinates to image coordinates
             int imgX1 = (selection.x - imageX) * image.getWidth() / drawWidth;
             int imgY1 = (selection.y - imageY) * image.getHeight() / drawHeight;
             int imgX2 = (selection.width * image.getWidth()) / drawWidth;
@@ -131,7 +125,7 @@ public class ImagePanel extends JPanel {
         } else {
             Filters.applyFilter(image, filterName);
         }
-        pointCount = 0; // Reset the point count after applying the filter
+        pointCount = 0;
         drawBorder = false;
         repaint();
         controlPanel.updateUndoRedoButtonState();
@@ -212,7 +206,7 @@ public class ImagePanel extends JPanel {
         super.paintComponent(g);
         if (image != null) {
             int width = getWidth();
-            int height = getHeight() - controlPanel.getHeight(); // Adjust for control panel height
+            int height = getHeight() - controlPanel.getHeight();
             int imgWidth = image.getWidth();
             int imgHeight = image.getHeight();
             double imgAspect = (double) imgWidth / imgHeight;
@@ -245,14 +239,14 @@ public class ImagePanel extends JPanel {
 
     public void showInstructions() {
         String instructions = "<html><body>" +
-                "<h2>Instructions</h2>" +
-                "<p><strong>Loading an Image:</strong> Click 'Select Image' to load an image from your computer.</p>" +
-                "<p><strong>Applying Filters:</strong> Select a filter from the dropdown menu and click 'Apply'.</p>" +
-                "<p><strong>Using Dots:</strong> Left-click to place up to 4 dots on the image. Right-click to remove a dot. The selected area will be outlined in red.</p>" +
-                "<p><strong>Resetting Dots:</strong> After placing 4 dots, the next left-click will reset the dots.</p>" +
-                "<p><strong>Undo/Redo:</strong> Use 'Undo' and 'Redo' buttons to revert changes.</p>" +
-                "<p><strong>Clear Filters:</strong> Click 'Clear Filters' to remove all applied filters and return to the original image.</p>" +
-                "<p><strong>Saving the Image:</strong> Click 'Save' to save the edited image.</p>" +
+                "<h2><b>Instructions</b></h2>" +
+                "<p><b>Load Image:</b> Click 'Select Image'</p><br>" +
+                "<p><b>Apply Filter:</b> Select filter, click 'Apply'</p><br>" +
+                "<p><b>Dots:</b> Left-click to add, right-click to remove</p><br>" +
+                "<p><b>Reset Dots:</b> Click to reset after 4 dots</p><br>" +
+                "<p><b>Undo/Redo:</b> Use 'Undo' and 'Redo' buttons</p><br>" +
+                "<p><b>Clear Filters:</b> Click 'Clear Filters'</p><br>" +
+                "<p><b>Save Image:</b> Click 'Save'</p>" +
                 "</body></html>";
 
         JOptionPane.showMessageDialog(this, instructions, "Instructions", JOptionPane.INFORMATION_MESSAGE);
