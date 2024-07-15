@@ -85,7 +85,7 @@ public class ControlPanel extends JPanel {
     }
 
     public void updateApplyButtonState(int pointCount) {
-        applyButton.setEnabled(pointCount == 0 || pointCount == 4);
+        applyButton.setEnabled(imagePanel.getImage() != null && (pointCount == 0 || pointCount == 4));
     }
 
     public void updateUndoRedoButtonState() {

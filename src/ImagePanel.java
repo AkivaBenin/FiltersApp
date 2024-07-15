@@ -34,6 +34,9 @@ public class ImagePanel extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                if (image == null) {
+                    return;
+                }
                 if (SwingUtilities.isRightMouseButton(e)) {
                     if (pointCount > 0) {
                         pointCount--;
@@ -43,7 +46,6 @@ public class ImagePanel extends JPanel {
                     }
                 } else if (SwingUtilities.isLeftMouseButton(e)) {
                     if (pointCount == 4) {
-                        // Reset the points
                         pointCount = 0;
                         drawBorder = false;
                         selectedPoints = new Point[4];
@@ -99,6 +101,11 @@ public class ImagePanel extends JPanel {
         drawBorder = false;
         selectedPoints = new Point[4];
         controlPanel.updateClearButtonState();
+        controlPanel.updateApplyButtonState(pointCount);
+    }
+
+    public BufferedImage getImage() {
+        return image;
     }
 
     public void applyFilter(String filterName) {
@@ -178,6 +185,7 @@ public class ImagePanel extends JPanel {
                     file = new File(file.getAbsolutePath() + ".jpg");
                 }
                 ImageIO.write(image, "jpg", file);
+                JOptionPane.showMessageDialog(this, "Image saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -239,14 +247,13 @@ public class ImagePanel extends JPanel {
 
     public void showInstructions() {
         String instructions = "<html><body>" +
-                "<h2><b>Instructions</b></h2>" +
-                "<p><b>Load Image:</b> Click 'Select Image'</p><br>" +
-                "<p><b>Apply Filter:</b> Select filter, click 'Apply'</p><br>" +
-                "<p><b>Dots:</b> Left-click to add, right-click to remove</p><br>" +
-                "<p><b>Reset Dots:</b> Click to reset after 4 dots</p><br>" +
-                "<p><b>Undo/Redo:</b> Use 'Undo' and 'Redo' buttons</p><br>" +
-                "<p><b>Clear Filters:</b> Click 'Clear Filters'</p><br>" +
-                "<p><b>Save Image:</b> Click 'Save'</p>" +
+                "<h2><b>הוראות</b></h2>" +
+                "<p><b>טעינת תמונה:</b> לחצו על 'Select Image'</p><br>" +
+                "<p><b>להגדיר פילטר:</b> בחר פילטר ולאחר מכן לחץ 'Apply'</p><br>" +
+                "<p><b>הוספת נקודה:</b> לחיצה שמאלית להוספת נקודה</p><br>" +
+                "<p><b>מחיקת נקודה:</b> לחיצה ימינית למחיקת נקודה</p><br>" +
+                "<p><b>ניקוי כל הפילטרים:</b> לחץ 'Clear Filters'</p><br>" +
+                "<p><b>שמירת תמונה:</b> לחץ 'Save'</p>" +
                 "</body></html>";
 
         JOptionPane.showMessageDialog(this, instructions, "Instructions", JOptionPane.INFORMATION_MESSAGE);
